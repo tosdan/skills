@@ -1,6 +1,6 @@
 ---
 name: plan-software-decisions
-description: Guide complex software work through a persistent, decision-first planning process before implementation. Use when a project has many uncertain tasks, needs stabilization, redesign, migration or architectural clarification, or when the user asks to create a durable plan, compare alternatives, proceed one decision at a time, maintain a granular checklist, or resume from one explicit next step.
+description: Guida lavori software complessi attraverso un processo di pianificazione persistente che risolve le decisioni prima dell'implementazione. Usare quando un progetto presenta molte attività incerte, richiede stabilizzazione, riprogettazione, migrazione o chiarimenti architetturali; oppure quando l'utente chiede di creare un piano durevole, confrontare alternative, procedere una decisione alla volta, mantenere una checklist granulare o riprendere il lavoro da un unico prossimo passo esplicito.
 ---
 
 # Plan Software Decisions
