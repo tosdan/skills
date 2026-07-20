@@ -26,7 +26,9 @@ All'inizio del lavoro proporre queste modalità:
 - **Bilanciata (consigliata)**: completare un solo comportamento osservabile per checkpoint, includendo test e implementazione minima quando appropriato.
 - **Ripetitiva controllata**: applicare a pochi casi equivalenti un pattern già approvato. Usarla soltanto dopo aver revisionato almeno un esempio e senza introdurre nuove decisioni.
 
-Chiedere all'utente di scegliere una modalità e attendere la risposta. Se delega esplicitamente la scelta, adottare la modalità Bilanciata.
+Chiedere all'utente di scegliere una modalità una sola volta, all'inizio del lavoro, e attendere la risposta. Se delega esplicitamente la scelta, adottare la modalità Bilanciata. Registrare la modalità nel documento di avanzamento e riutilizzarla nei checkpoint e nelle sessioni successive senza ripetere la domanda.
+
+Non proporre di cambiare modalità durante il lavoro. Modificarla soltanto quando l'utente lo richiede esplicitamente. Se un checkpoint cresce o non rispetta più i limiti, suddividerlo mantenendo la modalità corrente.
 
 Applicare sempre questi limiti, indipendentemente dalla modalità:
 
