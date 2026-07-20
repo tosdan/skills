@@ -1,100 +1,159 @@
-# Software Development Agent Skills
+# Skill per agenti di sviluppo software
 
-Personal, reusable workflows for AI coding agents working on software projects.
-The catalog follows the open [Agent Skills specification](https://agentskills.io/specification)
-and is installable with the [`skills` CLI](https://github.com/vercel-labs/skills).
+Raccolta personale di workflow riutilizzabili per agenti AI che lavorano su
+progetti software. Il catalogo segue la
+[specifica aperta Agent Skills](https://agentskills.io/specification) ed è
+installabile tramite il [CLI `skills`](https://github.com/vercel-labs/skills).
 
-## Catalog
+## Iniziare subito
+
+Il comando `skills add` riceve come argomento la sorgente da cui scoprire e
+installare le skill. La sorgente può essere un repository GitHub, un URL Git o
+una cartella locale.
+
+La sorgente GitHub di questo catalogo è `tosdan/skills`.
+
+### Esplorare il catalogo
+
+Per vedere le skill disponibili senza installare nulla:
+
+```sh
+npx skills@latest add tosdan/skills --list
+```
+
+### Installazione interattiva
+
+Per avviare il flusso guidato:
+
+```sh
+npx skills@latest add tosdan/skills
+```
+
+Il CLI analizza il repository, mostra le skill disponibili e permette di
+scegliere quali installare. In base agli agenti rilevati può inoltre chiedere le
+destinazioni e il metodo di installazione. Senza `--global`, l'installazione è
+associata al progetto corrente.
+
+### Installare una skill specifica
+
+Per evitare la selezione della skill:
+
+```sh
+npx skills@latest add tosdan/skills --skill pair-program-in-checkpoints
+```
+
+Per installare tutte le skill del catalogo:
+
+```sh
+npx skills@latest add tosdan/skills --skill '*'
+```
+
+### Scegliere agente e ambito
+
+`--agent` indica l'agente di destinazione. `--global` rende la skill disponibile
+a livello utente, anziché soltanto nel progetto corrente.
+
+```sh
+npx skills@latest add tosdan/skills --skill plan-software-decisions --agent codex --global
+```
+
+Altri identificativi supportati includono, per esempio, `claude-code`, `cursor`
+e `opencode`.
+
+### Installazione non interattiva
+
+`--yes` accetta automaticamente le conferme. È utile negli script e nei flussi
+in cui skill, agente e ambito sono già stati scelti esplicitamente:
+
+```sh
+npx skills@latest add tosdan/skills --skill plan-software-decisions --agent codex --global --yes
+```
+
+### Usare un checkout locale
+
+Dalla radice di questo repository, usare `.` come sorgente:
+
+```sh
+# Elenca le skill locali senza installarle
+npx skills@latest add . --list
+
+# Avvia l'installazione interattiva dal catalogo locale
+npx skills@latest add .
+```
+
+## Catalogo
 
 ### `plan-software-decisions`
 
-Use for complex or uncertain work that needs a durable decision record before
-implementation. The skill inspects the repository, creates or resumes a
-canonical work plan, discusses one decision at a time, and derives acceptance
-scenarios before code changes begin.
+Da usare per lavori complessi o incerti che richiedono decisioni persistenti
+prima dell'implementazione. La skill esamina il repository, crea o riprende un
+piano canonico, affronta una decisione alla volta e deriva gli scenari di
+accettazione prima di modificare il codice.
 
 ```text
-Use $plan-software-decisions to analyze this migration, create a persistent
-plan, and guide me through one decision at a time.
+Usa $plan-software-decisions per analizzare questa migrazione, creare un piano
+persistente e guidarmi attraverso una decisione alla volta.
 ```
 
 ### `pair-program-in-checkpoints`
 
-Use for incremental implementation when the work should proceed through small,
-reviewable checkpoints. The skill proposes one checkpoint, waits for approval,
-implements only that scope, verifies it, and then proposes the next one.
+Da usare per implementare in modo incrementale attraverso checkpoint piccoli e
+revisionabili. La skill propone un checkpoint, attende l'approvazione, implementa
+soltanto quell'ambito, lo verifica e propone il passo successivo.
 
 ```text
-Use $pair-program-in-checkpoints to translate this plan into code one approved
-checkpoint at a time.
+Usa $pair-program-in-checkpoints per tradurre questo piano in codice, procedendo
+attraverso un checkpoint approvato alla volta.
 ```
 
-### Using both
+### Usare entrambe le skill
 
-The skills cover consecutive phases without depending on each other:
+Le skill coprono due fasi consecutive, senza dipendere l'una dall'altra:
 
-1. Use `plan-software-decisions` while important behavior or architecture is
-   still unresolved.
-2. Use `pair-program-in-checkpoints` after the relevant decisions and acceptance
-   scenarios are stable enough to implement.
+1. Usare `plan-software-decisions` mentre restano da chiarire comportamenti o
+   decisioni architetturali importanti.
+2. Usare `pair-program-in-checkpoints` quando le decisioni e gli scenari di
+   accettazione rilevanti sono abbastanza stabili da essere implementati.
 
-Install either skill independently when only one phase is needed.
+È possibile installare e usare ogni skill indipendentemente.
 
-## Repository layout
+## Struttura del repository
 
 ```text
 skills/
-  <skill-name>/
+  <nome-skill>/
     SKILL.md
-    agents/        # optional agent-facing metadata
-    scripts/       # optional executable helpers
-    references/    # optional documentation loaded on demand
-    assets/        # optional templates and static resources
+    agents/        # metadati opzionali per gli agenti
+    scripts/       # strumenti eseguibili opzionali
+    references/    # documentazione opzionale caricata quando serve
+    assets/        # template e risorse statiche opzionali
 ```
 
-Each skill is self-contained. Its directory name and the `name` field in
-`SKILL.md` must match and use lowercase kebab-case.
+Ogni skill è autosufficiente. Il nome della cartella e il campo `name` del suo
+`SKILL.md` devono coincidere e usare il formato kebab-case minuscolo.
 
-## Use this catalog
+## Aggiungere una skill
 
-List the available skills from a local checkout:
-
-```sh
-npx skills@latest add . --list
-```
-
-After publishing the repository on GitHub, list or install skills with:
-
-```sh
-npx skills@latest add <owner>/<repository> --list
-npx skills@latest add <owner>/<repository> --skill <skill-name>
-npx skills@latest add <owner>/<repository> --skill '*'
-```
-
-Use `-g` for a user-level installation and `-a <agent>` to target a specific
-agent, such as `codex` or `claude-code`.
-
-## Add a skill
-
-Create or move each skill into `skills/<skill-name>/`. At minimum it needs:
+Creare o spostare ogni skill in `skills/<nome-skill>/`. Il contenuto minimo è:
 
 ```markdown
 ---
-name: skill-name
-description: Describe what the skill does and the situations in which an agent should use it.
+name: nome-skill
+description: Descrivere cosa fa la skill e in quali situazioni deve essere usata.
 ---
 
-# Skill Name
+# Nome della skill
 
-Instructions for the agent.
+Istruzioni per l'agente.
 ```
 
-Keep detailed material outside `SKILL.md` and link to it with paths relative to
-the skill directory. Do not add a README to every skill: repository-level usage
-and installation guidance belongs here, while agent instructions belong in
-`SKILL.md`.
+Spostare il materiale dettagliato fuori da `SKILL.md` e collegarlo tramite
+percorsi relativi alla cartella della skill. Le istruzioni di installazione e
+utilizzo del catalogo appartengono a questo README; le istruzioni operative per
+l'agente appartengono al rispettivo `SKILL.md`.
 
-Before committing, confirm discovery with:
+Prima di creare un commit, verificare che il CLI scopra tutte e sole le skill
+previste:
 
 ```sh
 npx skills@latest add . --list
