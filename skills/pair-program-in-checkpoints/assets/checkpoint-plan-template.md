@@ -2,6 +2,8 @@
 
 ## Stato
 
+- Skill: **pair-program-in-checkpoints**
+- Registro: **creato e gestito dalla skill**
 - Stato complessivo: **in corso**
 - Granularità: **[esplorativa | bilanciata | ripetitiva controllata]**
 - Prossimo checkpoint: **[un solo risultato preciso]**
@@ -15,6 +17,11 @@
 
 - [Documento, requisito o riferimento]
 - [Vincolo noto]
+
+## Documenti esterni
+
+- Sincronizzazione autorizzata: **[sì | no]**
+- Documenti da aggiornare: **[percorsi oppure nessuno]**
 
 ## Checkpoint
 

@@ -9,14 +9,31 @@ description: Guida lo sviluppo di un software in modalità pair programming incr
 
 1. Leggere le istruzioni del repository, il materiale indicato, il codice coinvolto, i test e lo stato corrente del worktree.
 2. Separare i fatti osservati da requisiti espliciti, ipotesi, decisioni già prese e dipendenze esterne ancora ignote.
-3. Valutare durata, numero probabile di checkpoint e rischio che il lavoro prosegua in una sessione successiva.
-4. Cercare un documento canonico che registri obiettivo, decisioni, avanzamento e prossimo checkpoint.
-5. Se il lavoro richiede più checkpoint o può superare la sessione corrente e manca un documento adeguato, proporre di crearne uno in una posizione coerente con il repository, di default `docs/work-plan.md`, usando `assets/checkpoint-plan-template.md` come base. Attendere l'approvazione e crearlo come primo checkpoint.
-6. Concordare la granularità, salvo che l'utente l'abbia già indicata chiaramente.
-7. Individuare il checkpoint più piccolo compatibile con la granularità scelta che riduca un'incertezza o produca un risultato revisionabile.
-8. Proporre un solo checkpoint con una motivazione breve e attendere l'approvazione prima di eseguirlo.
+3. Identificare un nome breve e stabile per il lavoro e cercare un eventuale registro creato in precedenza da questa skill per lo stesso lavoro.
+4. Cercare piani, specifiche o documenti di avanzamento preesistenti dell'utente che riguardino il lavoro.
+5. Se esistono documenti preesistenti, chiedere una sola volta se l'utente vuole che vengano aggiornati insieme al registro della skill. Precisare che il registro della skill verrà comunque creato o aggiornato e resterà la fonte canonica per i checkpoint.
+6. Concordare la granularità, salvo che sia già registrata per il lavoro o che l'utente l'abbia indicata chiaramente.
+7. Creare o aggiornare il registro specifico della skill usando `assets/checkpoint-plan-template.md`, sotto un percorso inequivocabilmente dedicato a `pair-program-in-checkpoints` e di default in `docs/pair-program-in-checkpoints/<nome-lavoro>.md`.
+8. Individuare il checkpoint più piccolo compatibile con la granularità scelta che riduca un'incertezza o produca un risultato revisionabile.
+9. Registrarlo come unico prossimo checkpoint, proporlo con una motivazione breve e attendere l'approvazione prima di eseguirlo.
 
-Se l'utente ha già approvato un checkpoint concreto, eseguirlo senza chiedere una seconda conferma.
+Se l'utente ha già approvato un checkpoint concreto, completare comunque l'impostazione e la registrazione iniziali, poi eseguirlo senza chiedere una seconda conferma sul checkpoint.
+
+## Registrare il lavoro della skill
+
+Creare e mantenere un registro specifico per ogni lavoro avviato con questa skill, anche quando il lavoro è breve, prevede un solo checkpoint o si conclude nella sessione corrente. Non usare un piano o un documento preesistente dell'utente come sostituto del registro della skill.
+
+Quando si riprende lo stesso lavoro, riutilizzare il registro esistente invece di crearne uno concorrente. Verificare che corrisponda allo stato reale del repository prima di proseguire.
+
+Se durante l'impostazione vengono trovati documenti preesistenti pertinenti:
+
+1. elencarli in modo conciso;
+2. chiedere esplicitamente se l'utente vuole mantenerli sincronizzati;
+3. ricordare che avanzamento e checkpoint saranno registrati comunque nel file specifico della skill;
+4. registrare nel file della skill la scelta e i documenti autorizzati;
+5. non modificare i documenti esterni se l'utente non ha dato il consenso.
+
+Chiedere questa preferenza una sola volta per il lavoro. Nelle sessioni successive riutilizzare la scelta registrata, salvo una richiesta esplicita dell'utente.
 
 ## Concordare la granularità
 
@@ -70,8 +87,9 @@ Definizione adattata dalla skill [`codebase-design`](https://github.com/mattpoco
 3. Applicare esclusivamente le modifiche necessarie al checkpoint concordato.
 4. Conservare le modifiche dell'utente e ignorare il lavoro non correlato.
 5. Eseguire prima la verifica mirata, poi controlli più ampi proporzionati al rischio.
-6. Aggiornare il documento di avanzamento quando il codice rende obsolete analisi o decisioni precedenti.
-7. Fermarsi dopo il checkpoint e proporre un solo passo successivo.
+6. Aggiornare sempre il registro della skill con risultato, verifiche, decisioni emerse e unico prossimo checkpoint.
+7. Aggiornare anche i documenti esterni autorizzati quando il checkpoint ne modifica realmente lo stato o il contenuto.
+8. Fermarsi dopo il checkpoint e proporre un solo passo successivo.
 
 Quando l'utente dice «procedi» o una formula equivalente, interpretarla come approvazione dell'ultimo checkpoint proposto, non come autorizzazione a completare in batch l'intero piano.
 
@@ -105,7 +123,9 @@ Quando si introduce un comportamento nuovo:
 
 ## Mantenere la pianificazione viva
 
-Usare il documento canonico esistente senza crearne uno concorrente. Dopo ogni checkpoint aggiornarlo almeno con risultato, stato, verifiche, decisioni emerse e unico prossimo checkpoint.
+Usare il registro specifico della skill come fonte canonica per l'avanzamento dei checkpoint. Aggiornarlo dopo ogni checkpoint, indipendentemente dalla durata del lavoro o dal numero di sessioni, almeno con risultato, stato, verifiche, decisioni emerse e unico prossimo checkpoint.
+
+Trattare eventuali piani o documenti preesistenti come destinazioni secondarie e opzionali. Aggiornarli soltanto se l'utente li ha autorizzati durante l'impostazione; non duplicare indiscriminatamente il registro e non usarli al posto del file della skill.
 
 Usare stati espliciti:
 
@@ -117,8 +137,6 @@ Usare stati espliciti:
 
 Registrare anche le decisioni deliberate di non implementare qualcosa e la ragione che le rende corrette nel contesto attuale. Non segnare un'attività come completata senza indicare l'evidenza di verifica.
 
-Se l'utente non approva la creazione di un documento persistente per un lavoro lungo, rendere esplicito il rischio per la ripresa e chiudere ogni checkpoint con un riepilogo abbastanza completo da fungere da handoff temporaneo.
-
 ## Chiudere ogni checkpoint
 
 Restituire un riepilogo autosufficiente e breve con:
@@ -126,7 +144,8 @@ Restituire un riepilogo autosufficiente e breve con:
 - risultato ottenuto;
 - file o aree modificati;
 - verifiche eseguite e relativo esito;
-- aggiornamento apportato al documento di avanzamento;
+- aggiornamento apportato al registro della skill;
+- eventuali documenti esterni sincronizzati;
 - limiti ancora presenti;
 - un solo checkpoint successivo consigliato.
 
