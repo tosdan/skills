@@ -71,18 +71,16 @@ Preferire risultati come:
 
 Non anticipare i checkpoint successivi.
 
-## Usare il termine seam
+## Individuare come osservare e isolare il comportamento
 
-Un **seam** è un punto in cui è possibile modificare il comportamento senza intervenire direttamente in quel punto; è il luogo in cui vive l'interfaccia di un modulo. Decidere dove collocare il seam è una scelta di design distinta da ciò che viene collocato dietro di esso.
+Per isolare un comportamento, individuare l'interazione in cui una dipendenza o un'implementazione può essere sostituita senza modificare il codice che la utilizza. Trattare separatamente due decisioni: stabilire quale interazione deve consentire la sostituzione; scegliere quale implementazione fornire attraverso quell'interazione.
 
-Usare `seam` con questo significato quando si identifica l'interfaccia pubblica attraversata da chiamanti e test. Non usarlo come sinonimo generico di file, classe, livello o confine.
-
-Definizione adattata dalla skill [`codebase-design`](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design) di Matt Pocock, basata sulla terminologia di Michael Feathers.
+*(Nel lessico di Michael Feathers, il punto in cui questa sostituzione è possibile è chiamato [seam](https://martinfowler.com/bliki/LegacySeam.html).)*
 
 ## Eseguire il checkpoint
 
 1. Verificare nuovamente i file interessati prima di modificarli, soprattutto dopo interruzioni o riavvii.
-2. Dichiarare in modo conciso il seam, l'assunzione o il risultato perseguito.
+2. Dichiarare in modo conciso il risultato perseguito e le assunzioni rilevanti; quando si interviene su un comportamento, indicare anche l'interazione attraverso cui osservarlo e isolarlo.
 3. Applicare esclusivamente le modifiche necessarie al checkpoint concordato.
 4. Conservare le modifiche dell'utente e ignorare il lavoro non correlato.
 5. Eseguire prima la verifica mirata, poi controlli più ampi proporzionati al rischio.
@@ -100,15 +98,15 @@ Quando l'utente dice «procedi» o una formula equivalente, interpretarla come a
 - Se emerge che una decisione precedente poggiava su un presupposto errato, correggere prima modello mentale, registro della skill ed eventuali documenti autorizzati. Non costruire altro lavoro sopra l'errore.
 - Distinguere sempre comportamento funzionale, contratto backend, aggiornamento dello state, feedback UI, styling e refactoring.
 
-## Testare attraverso seam pubblici
+## Verificare il comportamento attraverso interfacce pubbliche
 
 Quando si introduce un comportamento nuovo:
 
-1. Concordare o rendere esplicito il seam pubblico da osservare.
+1. Concordare o rendere esplicita l'interfaccia pubblica attraverso cui il test osserverà il comportamento.
 2. Scrivere un test comportamentale prima dell'implementazione quando il progetto e il checkpoint lo consentono.
 3. Eseguire la fase rossa e implementare soltanto quanto serve per arrivare al verde.
 4. Se il comportamento esiste già, trattare il test come caratterizzazione: accettare che sia subito verde e non produrre un fallimento artificiale.
-5. Evitare metodi privati, dettagli meccanici e mock di collaboratori interni quando è possibile attraversare il modulo reale e sostituire soltanto una dipendenza al seam esterno.
+5. Evitare test su metodi privati o dettagli meccanici e mock di collaboratori interni quando è possibile verificare il comportamento attraverso l'interfaccia pubblica del modulo reale, sostituendo soltanto la dipendenza esterna necessaria a isolarlo.
 6. Usare il linguaggio del dominio e la lingua stabilita dal progetto nei nomi dei test.
 7. Non dichiarare coperto un ramo più ampio di quello effettivamente verificato.
 
