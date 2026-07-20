@@ -9,19 +9,18 @@ description: Guida lo sviluppo di un software in modalità pair programming incr
 
 1. Leggere le istruzioni del repository, il materiale indicato, il codice coinvolto, i test e lo stato corrente del worktree.
 2. Separare i fatti osservati da requisiti espliciti, ipotesi, decisioni già prese e dipendenze esterne ancora ignote.
-3. Identificare un nome breve e stabile per il lavoro e cercare un eventuale registro creato in precedenza da questa skill per lo stesso lavoro.
-4. Cercare piani, specifiche o documenti di avanzamento preesistenti dell'utente che riguardino il lavoro.
-5. Se esistono documenti preesistenti, chiedere una sola volta se l'utente vuole che vengano aggiornati insieme al registro della skill. Precisare che il registro della skill verrà comunque creato o aggiornato e resterà la fonte canonica per i checkpoint.
-6. Concordare la granularità, salvo che sia già registrata per il lavoro o che l'utente l'abbia indicata chiaramente.
-7. Creare o aggiornare il registro specifico della skill usando `assets/checkpoint-plan-template.md`, sotto un percorso inequivocabilmente dedicato a `pair-program-in-checkpoints` e di default in `docs/pair-program-in-checkpoints/<nome-lavoro>.md`.
-8. Individuare il checkpoint più piccolo compatibile con la granularità scelta che riduca un'incertezza o produca un risultato revisionabile.
-9. Registrarlo come unico prossimo checkpoint, proporlo con una motivazione breve e attendere l'approvazione prima di eseguirlo.
+3. Inizializzare o riprendere il registro e gestire gli eventuali documenti preesistenti secondo la sezione "Registrare il lavoro della skill".
+4. Concordare la granularità, salvo che sia già registrata per il lavoro o che l'utente l'abbia indicata chiaramente.
+5. Individuare il checkpoint più piccolo compatibile con la granularità scelta che riduca un'incertezza o produca un risultato revisionabile.
+6. Registrarlo come unico prossimo checkpoint, proporlo con una motivazione breve e attendere l'approvazione prima di eseguirlo.
 
 Se l'utente ha già approvato un checkpoint concreto, completare comunque l'impostazione e la registrazione iniziali, poi eseguirlo senza chiedere una seconda conferma sul checkpoint.
 
 ## Registrare il lavoro della skill
 
-Creare e mantenere un registro specifico per ogni lavoro avviato con questa skill, anche quando il lavoro è breve, prevede un solo checkpoint o si conclude nella sessione corrente. Non usare un piano o un documento preesistente dell'utente come sostituto del registro della skill.
+Identificare un nome breve e stabile per ogni lavoro avviato con questa skill. Creare il relativo registro da `assets/checkpoint-plan-template.md`, sotto un percorso inequivocabilmente dedicato a `pair-program-in-checkpoints` e di default in `docs/pair-program-in-checkpoints/<nome-lavoro>.md`.
+
+Creare e mantenere il registro anche quando il lavoro è breve, prevede un solo checkpoint o si conclude nella sessione corrente. Non usare un piano o un documento preesistente dell'utente come sostituto.
 
 Quando si riprende lo stesso lavoro, riutilizzare il registro esistente invece di crearne uno concorrente. Verificare che corrisponda allo stato reale del repository prima di proseguire.
 
@@ -43,7 +42,7 @@ All'inizio del lavoro proporre queste modalità:
 - **Bilanciata (consigliata)**: completare un solo comportamento osservabile per checkpoint, includendo test e implementazione minima quando appropriato.
 - **Ripetitiva controllata**: applicare a pochi casi equivalenti un pattern già approvato. Usarla soltanto dopo aver revisionato almeno un esempio e senza introdurre nuove decisioni.
 
-Chiedere all'utente di scegliere una modalità una sola volta, all'inizio del lavoro, e attendere la risposta. Se delega esplicitamente la scelta, adottare la modalità Bilanciata. Registrare la modalità nel documento di avanzamento e riutilizzarla nei checkpoint e nelle sessioni successive senza ripetere la domanda.
+Chiedere all'utente di scegliere una modalità una sola volta, all'inizio del lavoro, e attendere la risposta. Se delega esplicitamente la scelta, adottare la modalità Bilanciata. Registrare la modalità nel registro della skill e riutilizzarla nei checkpoint e nelle sessioni successive senza ripetere la domanda.
 
 Non proporre di cambiare modalità durante il lavoro. Modificarla soltanto quando l'utente lo richiede esplicitamente. Se un checkpoint cresce o non rispetta più i limiti, suddividerlo mantenendo la modalità corrente.
 
@@ -51,16 +50,16 @@ Applicare sempre questi limiti, indipendentemente dalla modalità:
 
 - perseguire un solo obiettivo concettuale;
 - dichiarare prima dell'esecuzione le aree o i file attesi, la verifica prevista e una stima della dimensione;
-- non combinare cambiamenti funzionali e refactoring separabili;
+- non combinare nello stesso checkpoint contratto, state, UI, styling e refactoring quando possono essere revisionati separatamente;
 - dividere il checkpoint se si prevedono più di circa 100 righe modificate manualmente, oppure ottenere un'approvazione specifica motivata;
 - escludere dal limite numerico file generati, lockfile e snapshot, ma segnalarli nella stima;
 - fermarsi e proporre una suddivisione se durante l'esecuzione emergono nuove decisioni o lo scope cresce.
 
 Usare il conteggio delle righe solo come segnale di allarme. La misura principale resta la presenza di un solo risultato revisionabile.
 
-## Dimensionare un checkpoint
+## Esempi di checkpoint
 
-Definire un solo risultato concettuale per checkpoint. Preferire, per esempio:
+Preferire risultati come:
 
 - chiarire una regola di dominio;
 - aggiungere un modello o un contratto;
@@ -70,7 +69,7 @@ Definire un solo risultato concettuale per checkpoint. Preferire, per esempio:
 - riallineare un documento ormai obsoleto;
 - eseguire una verifica di regressione.
 
-Non combinare nello stesso checkpoint contratto, state, UI, styling e refactoring se possono essere revisionati separatamente. Non anticipare i checkpoint successivi.
+Non anticipare i checkpoint successivi.
 
 ## Usare il termine seam
 
@@ -87,9 +86,8 @@ Definizione adattata dalla skill [`codebase-design`](https://github.com/mattpoco
 3. Applicare esclusivamente le modifiche necessarie al checkpoint concordato.
 4. Conservare le modifiche dell'utente e ignorare il lavoro non correlato.
 5. Eseguire prima la verifica mirata, poi controlli più ampi proporzionati al rischio.
-6. Aggiornare sempre il registro della skill con risultato, verifiche, decisioni emerse e unico prossimo checkpoint.
-7. Aggiornare anche i documenti esterni autorizzati quando il checkpoint ne modifica realmente lo stato o il contenuto.
-8. Fermarsi dopo il checkpoint e proporre un solo passo successivo.
+6. Aggiornare il registro della skill e gli eventuali documenti autorizzati secondo la sezione "Mantenere la pianificazione viva".
+7. Fermarsi dopo il checkpoint e proporre un solo passo successivo.
 
 Quando l'utente dice «procedi» o una formula equivalente, interpretarla come approvazione dell'ultimo checkpoint proposto, non come autorizzazione a completare in batch l'intero piano.
 
@@ -99,7 +97,7 @@ Quando l'utente dice «procedi» o una formula equivalente, interpretarla come a
 - Non trasformare una possibilità in un requisito senza evidenza nei materiali o nel codice di riferimento.
 - Lasciare al backend le decisioni che gli appartengono quando il frontend deve soltanto inoltrare dati e rappresentare l'esito.
 - Chiedere una decisione soltanto quando alternative plausibili produrrebbero risultati materialmente diversi e il contesto locale non permette di scegliere.
-- Se emerge che una decisione precedente poggiava su un presupposto errato, correggere prima modello mentale, documentazione e piano. Non costruire altro lavoro sopra l'errore.
+- Se emerge che una decisione precedente poggiava su un presupposto errato, correggere prima modello mentale, registro della skill ed eventuali documenti autorizzati. Non costruire altro lavoro sopra l'errore.
 - Distinguere sempre comportamento funzionale, contratto backend, aggiornamento dello state, feedback UI, styling e refactoring.
 
 ## Testare attraverso seam pubblici

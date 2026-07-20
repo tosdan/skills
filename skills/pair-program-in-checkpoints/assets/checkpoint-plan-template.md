@@ -2,8 +2,7 @@
 
 ## Stato
 
-- Skill: **pair-program-in-checkpoints**
-- Registro: **creato e gestito dalla skill**
+- Registro della skill: **pair-program-in-checkpoints**
 - Stato complessivo: **in corso**
 - Granularità: **[esplorativa | bilanciata | ripetitiva controllata]**
 - Prossimo checkpoint: **[un solo risultato preciso]**
