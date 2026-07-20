@@ -1,6 +1,6 @@
 ---
 name: pair-program-in-checkpoints
-description: Guida il lavoro software in modalità pair programming incrementale attraverso checkpoint piccoli, concordati e verificabili. Usare quando l'utente chiede di tradurre piani, specifiche, mockup, user flow o documenti in codice procedendo passo passo; vuole calibrare insieme i primi esempi prima di lavorare in batch; chiede approvazione tra uno step e il successivo; oppure vuole evitare modifiche ampie, assunzioni implicite e refactoring opportunistici.
+description: Guida lo sviluppo di un software in modalità pair programming incrementale attraverso checkpoint piccoli, concordati e verificabili. Usare quando l'utente chiede di tradurre piani, specifiche, mockup, user flow o documenti in codice procedendo passo passo; vuole calibrare insieme i primi esempi prima di lavorare in batch; chiede approvazione tra uno step e il successivo; oppure vuole evitare modifiche ampie, assunzioni implicite e refactoring opportunistici.
 ---
 
 # Pair programming a checkpoint
@@ -9,10 +9,35 @@ description: Guida il lavoro software in modalità pair programming incrementale
 
 1. Leggere le istruzioni del repository, il materiale indicato, il codice coinvolto, i test e lo stato corrente del worktree.
 2. Separare i fatti osservati da requisiti espliciti, ipotesi, decisioni già prese e dipendenze esterne ancora ignote.
-3. Individuare il checkpoint più piccolo che riduca un'incertezza o produca un risultato revisionabile.
-4. Proporre un solo checkpoint con una motivazione breve e attendere l'approvazione prima di eseguirlo.
+3. Valutare durata, numero probabile di checkpoint e rischio che il lavoro prosegua in una sessione successiva.
+4. Cercare un documento canonico che registri obiettivo, decisioni, avanzamento e prossimo checkpoint.
+5. Se il lavoro richiede più checkpoint o può superare la sessione corrente e manca un documento adeguato, proporre di crearne uno in una posizione coerente con il repository, di default `docs/work-plan.md`, usando `assets/checkpoint-plan-template.md` come base. Attendere l'approvazione e crearlo come primo checkpoint.
+6. Concordare la granularità, salvo che l'utente l'abbia già indicata chiaramente.
+7. Individuare il checkpoint più piccolo compatibile con la granularità scelta che riduca un'incertezza o produca un risultato revisionabile.
+8. Proporre un solo checkpoint con una motivazione breve e attendere l'approvazione prima di eseguirlo.
 
 Se l'utente ha già approvato un checkpoint concreto, eseguirlo senza chiedere una seconda conferma.
+
+## Concordare la granularità
+
+All'inizio del lavoro proporre queste modalità:
+
+- **Esplorativa**: separare analisi, decisione, test e implementazione in checkpoint distinti. Usarla per codice sconosciuto, rischioso o ancora ambiguo.
+- **Bilanciata (consigliata)**: completare un solo comportamento osservabile per checkpoint, includendo test e implementazione minima quando appropriato.
+- **Ripetitiva controllata**: applicare a pochi casi equivalenti un pattern già approvato. Usarla soltanto dopo aver revisionato almeno un esempio e senza introdurre nuove decisioni.
+
+Chiedere all'utente di scegliere una modalità e attendere la risposta. Se delega esplicitamente la scelta, adottare la modalità Bilanciata.
+
+Applicare sempre questi limiti, indipendentemente dalla modalità:
+
+- perseguire un solo obiettivo concettuale;
+- dichiarare prima dell'esecuzione le aree o i file attesi, la verifica prevista e una stima della dimensione;
+- non combinare cambiamenti funzionali e refactoring separabili;
+- dividere il checkpoint se si prevedono più di circa 100 righe modificate manualmente, oppure ottenere un'approvazione specifica motivata;
+- escludere dal limite numerico file generati, lockfile e snapshot, ma segnalarli nella stima;
+- fermarsi e proporre una suddivisione se durante l'esecuzione emergono nuove decisioni o lo scope cresce.
+
+Usare il conteggio delle righe solo come segnale di allarme. La misura principale resta la presenza di un solo risultato revisionabile.
 
 ## Dimensionare un checkpoint
 
@@ -28,6 +53,14 @@ Definire un solo risultato concettuale per checkpoint. Preferire, per esempio:
 
 Non combinare nello stesso checkpoint contratto, state, UI, styling e refactoring se possono essere revisionati separatamente. Non anticipare i checkpoint successivi.
 
+## Usare il termine seam
+
+Un **seam** è un punto in cui è possibile modificare il comportamento senza intervenire direttamente in quel punto; è il luogo in cui vive l'interfaccia di un modulo. Decidere dove collocare il seam è una scelta di design distinta da ciò che viene collocato dietro di esso.
+
+Usare `seam` con questo significato quando si identifica l'interfaccia pubblica attraversata da chiamanti e test. Non usarlo come sinonimo generico di file, classe, livello o confine.
+
+Definizione adattata dalla skill [`codebase-design`](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design) di Matt Pocock, basata sulla terminologia di Michael Feathers.
+
 ## Eseguire il checkpoint
 
 1. Verificare nuovamente i file interessati prima di modificarli, soprattutto dopo interruzioni o riavvii.
@@ -35,7 +68,7 @@ Non combinare nello stesso checkpoint contratto, state, UI, styling e refactorin
 3. Applicare esclusivamente le modifiche necessarie al checkpoint concordato.
 4. Conservare le modifiche dell'utente e ignorare il lavoro non correlato.
 5. Eseguire prima la verifica mirata, poi controlli più ampi proporzionati al rischio.
-6. Aggiornare la pianificazione quando il codice rende obsolete analisi o decisioni precedenti.
+6. Aggiornare il documento di avanzamento quando il codice rende obsolete analisi o decisioni precedenti.
 7. Fermarsi dopo il checkpoint e proporre un solo passo successivo.
 
 Quando l'utente dice «procedi» o una formula equivalente, interpretarla come approvazione dell'ultimo checkpoint proposto, non come autorizzazione a completare in batch l'intero piano.
@@ -57,7 +90,7 @@ Quando si introduce un comportamento nuovo:
 2. Scrivere un test comportamentale prima dell'implementazione quando il progetto e il checkpoint lo consentono.
 3. Eseguire la fase rossa e implementare soltanto quanto serve per arrivare al verde.
 4. Se il comportamento esiste già, trattare il test come caratterizzazione: accettare che sia subito verde e non produrre un fallimento artificiale.
-5. Evitare metodi privati, dettagli meccanici e mock di collaboratori interni quando è possibile attraversare il modulo reale e sostituire soltanto un confine esterno.
+5. Evitare metodi privati, dettagli meccanici e mock di collaboratori interni quando è possibile attraversare il modulo reale e sostituire soltanto una dipendenza al seam esterno.
 6. Usare il linguaggio del dominio e la lingua stabilita dal progetto nei nomi dei test.
 7. Non dichiarare coperto un ramo più ampio di quello effettivamente verificato.
 
@@ -70,7 +103,9 @@ Quando si introduce un comportamento nuovo:
 
 ## Mantenere la pianificazione viva
 
-Aggiornare i documenti con stati espliciti:
+Usare il documento canonico esistente senza crearne uno concorrente. Dopo ogni checkpoint aggiornarlo almeno con risultato, stato, verifiche, decisioni emerse e unico prossimo checkpoint.
+
+Usare stati espliciti:
 
 - **Completato**: comportamento implementato e verificato;
 - **Parziale**: solo una parte precisa è stata completata;
@@ -78,7 +113,9 @@ Aggiornare i documenti con stati espliciti:
 - **Non necessario**: il requisito non si applica allo scenario corrente;
 - **Aperto e separato**: attività valida ma non bloccante per il risultato corrente.
 
-Registrare anche le decisioni deliberate di non implementare qualcosa e la ragione che le rende corrette nel contesto attuale.
+Registrare anche le decisioni deliberate di non implementare qualcosa e la ragione che le rende corrette nel contesto attuale. Non segnare un'attività come completata senza indicare l'evidenza di verifica.
+
+Se l'utente non approva la creazione di un documento persistente per un lavoro lungo, rendere esplicito il rischio per la ripresa e chiudere ogni checkpoint con un riepilogo abbastanza completo da fungere da handoff temporaneo.
 
 ## Chiudere ogni checkpoint
 
@@ -87,6 +124,7 @@ Restituire un riepilogo autosufficiente e breve con:
 - risultato ottenuto;
 - file o aree modificati;
 - verifiche eseguite e relativo esito;
+- aggiornamento apportato al documento di avanzamento;
 - limiti ancora presenti;
 - un solo checkpoint successivo consigliato.
 
