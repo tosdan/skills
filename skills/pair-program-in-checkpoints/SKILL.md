@@ -39,7 +39,7 @@ Chiedere questa preferenza una sola volta per il lavoro. Nelle sessioni successi
 All'inizio del lavoro proporre queste modalità:
 
 - **Esplorativa**: separare analisi, decisione, test e implementazione in checkpoint distinti. Usarla per codice sconosciuto, rischioso o ancora ambiguo.
-- **Bilanciata (consigliata)**: completare un solo comportamento osservabile per checkpoint, includendo test e implementazione minima quando appropriato.
+- **Bilanciata (consigliata)**: completare un solo piccolo comportamento osservabile per checkpoint. Includere tutto ciò che serve per renderlo funzionante e verificato, ma nessun comportamento appartenente al checkpoint successivo.
 - **Ripetitiva controllata**: applicare a pochi casi equivalenti un pattern già approvato. Usarla soltanto dopo aver revisionato almeno un esempio e senza introdurre nuove decisioni.
 
 Chiedere all'utente di scegliere una modalità una sola volta, all'inizio del lavoro, e attendere la risposta. Se delega esplicitamente la scelta, adottare la modalità Bilanciata. Registrare la modalità nel registro della skill e riutilizzarla nei checkpoint e nelle sessioni successive senza ripetere la domanda.
@@ -64,7 +64,7 @@ Preferire risultati come:
 - chiarire una regola di dominio;
 - aggiungere un modello o un contratto;
 - coprire un comportamento con un test;
-- implementare la trasformazione minima necessaria;
+- implementare una sola trasformazione completa e verificabile;
 - collegare un comportamento già verificato al template;
 - riallineare un documento ormai obsoleto;
 - eseguire una verifica di regressione.
