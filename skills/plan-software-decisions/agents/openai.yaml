@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Software Decisions"
+  short_description: "Guida decisionale persistente per progetti software"
+  default_prompt: "Usa $plan-software-decisions per analizzare il progetto, creare un piano persistente e guidarmi attraverso una decisione alla volta."

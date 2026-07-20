@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pair Programming a Checkpoint"
+  short_description: "Sviluppo guidato in piccoli checkpoint"
+  default_prompt: "Usa $pair-program-in-checkpoints per guidare questo lavoro software attraverso checkpoint piccoli, concordati e verificabili."
